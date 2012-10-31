@@ -1,4 +1,4 @@
-hw2-team01
+hellobioqa
 ==========
 
-QA pipeline for genomics task (Fall 12 11-791)
+A "hello world" question answering pipeline for biomedical questions based on configuration space exploration framework
