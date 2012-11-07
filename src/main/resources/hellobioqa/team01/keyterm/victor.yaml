@@ -1,0 +1,6 @@
+class: edu.cmu.lti.oaqa.openqa.test.team01.keyterm.VictorKeyTermExtractor
+
+model: src/main/resources/models/ne-en-bio-genetag.HmmChunker
+
+persistence-provider: 
+  inherit: ecd.default-log-persistence-provider
