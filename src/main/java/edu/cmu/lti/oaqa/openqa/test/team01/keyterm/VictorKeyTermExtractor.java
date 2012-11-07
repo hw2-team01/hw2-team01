@@ -31,7 +31,6 @@ public class VictorKeyTermExtractor extends AbstractKeytermExtractor {
     } catch (Exception e) {
       throw new ResourceInitializationException(e);
     }
-    log("************** I am ready");
   }
 
   @Override

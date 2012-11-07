@@ -1,0 +1,4 @@
+class: edu.cmu.lti.oaqa.openqa.test.team01.keyterm.YipeiwKeyTermExtractor
+
+persistence-provider: |
+  inherit: ecd.default-log-persistence-provider

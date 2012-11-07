@@ -17,7 +17,7 @@ import edu.cmu.lti.oaqa.framework.data.Keyterm;
 public class MaibergKeyTermExtractor extends AbstractKeytermExtractor {
 	
 
-  private final String chunkerFilePath = "resources/ne-en-bio-genetag.HmmChunker";
+  private final String chunkerFilePath = "src/main/resources/models/ne-en-bio-genetag.HmmChunker";
 
 @Override
 protected List<Keyterm> getKeyterms(String question) {
