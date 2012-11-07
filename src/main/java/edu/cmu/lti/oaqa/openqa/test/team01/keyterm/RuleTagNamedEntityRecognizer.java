@@ -1,4 +1,4 @@
-package ner;
+package edu.cmu.lti.oaqa.openqa.test.team01.keyterm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
