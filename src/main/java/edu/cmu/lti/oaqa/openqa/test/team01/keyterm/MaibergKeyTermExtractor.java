@@ -1,52 +1,68 @@
 package edu.cmu.lti.oaqa.openqa.test.team01.keyterm;
 
-import java.io.IOException;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
-import com.aliasi.chunk.Chunk;
-import com.aliasi.chunk.Chunker;
-import com.aliasi.chunk.Chunking;
-import com.aliasi.util.AbstractExternalizable;
+import org.apache.uima.UimaContext;
+
+import banner.eval.uima.BANNERWrapper;
+
 
 
 import edu.cmu.lti.oaqa.cse.basephase.keyterm.AbstractKeytermExtractor;
 import edu.cmu.lti.oaqa.framework.data.Keyterm;
 
 public class MaibergKeyTermExtractor extends AbstractKeytermExtractor {
-	
 
-  private final String chunkerFilePath = "src/main/resources/models/ne-en-bio-genetag.HmmChunker";
+	private URL configFilePath;
+	private String modelFilePath;
 
-@Override
-protected List<Keyterm> getKeyterms(String question) {
-	java.io.File f = new java.io.File(chunkerFilePath);
-	List<Keyterm> listKeyterms = new LinkedList<Keyterm>();
-	Chunker chunker = null;
-	try {
-		chunker = (Chunker) AbstractExternalizable.readObject(f);
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+	@Override
+	public void initialize(UimaContext aContext) {
+		String configFilePathString = (String) aContext
+				.getConfigParameterValue("configFile");
+
+		String modelFilePathString = (String) aContext
+				.getConfigParameterValue("modelFile");
+		//configFilePath = getClass().getClassLoader().getResource(
+			//	"config/" + configFilePathString);
+		//modelFilePath = getClass().getClassLoader().getResource("output/" + modelFilePathString);
+		configFilePath = Thread.currentThread().getContextClassLoader().getResource("config/" + configFilePathString);
+		modelFilePath = "/output/" + modelFilePathString;
+	}
+
+	@Override
+	protected List<Keyterm> getKeyterms(String question) {
+		List<Keyterm> listKeyterms = new LinkedList<Keyterm>();
+		BANNERWrapper banw = new BANNERWrapper();
+		banw.initialize(configFilePath, modelFilePath);
+		Map<String, String> annots = banw.getAnnotations(question);
+		for (String k : annots.keySet()) {
+			String mentionText = k, type = annots.get(k);
+			Keyterm keyterm = new Keyterm(mentionText);
+			keyterm.setComponentId(type);
+			listKeyterms.add(keyterm);
+			System.out.println("keyterm: " + mentionText + "type: " + type);
+		}
+
+		return listKeyterms;
 	}
 	
-	Chunking chunking = chunker.chunk(question);
-	Set<Chunk> chunkSet = chunking.chunkSet();
-	for (Chunk c : chunkSet)
-		if (c != null) {
-			String keyterm = question.substring(c.start(), c.end());
-			Keyterm k = new Keyterm(keyterm);
-			listKeyterms.add(k);
-		}
-	return listKeyterms;
-}
+	public void testIntialize() {
+		URL configFilePath = getClass().getClassLoader().getResource(
+				"config/" + "banner_AZDC.xml");
+		URL modelFilePath = getClass().getClassLoader().getResource("output/" +"model_AZDC.bin");
+		if(configFilePath != null)
+			System.out.println(configFilePath);
+		if(modelFilePath != null)
+			System.out.println(configFilePath);
+	}
+	
+	public static void main(String[] args){
+		MaibergKeyTermExtractor mkt = new MaibergKeyTermExtractor();
+		mkt.testIntialize();
+	}
 
-  
-	
-	
-	
 }

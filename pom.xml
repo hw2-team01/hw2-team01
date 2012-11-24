@@ -7,7 +7,7 @@
   <repositories>
     <repository>
       <id>oaqa</id>
-      <url>http://mu.lti.cs.cmu.edu:8081/nexus/content/groups/course</url>
+      <url>http://mu.lti.cs.cmu.edu:8081/nexus/content/repositories/course-dependencies</url>
     </repository>
     <repository>
       <id>central</id>
@@ -87,6 +87,84 @@
   		<artifactId>jsoup</artifactId>
   		<version>1.7.1</version>
   	</dependency>
+
+
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.uima</groupId>
+			<artifactId>uimaj-adapter-soap</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.uima</groupId>
+			<artifactId>uimaj-tools</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.uima</groupId>
+			<artifactId>uimaj-adapter-vinci</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.uima</groupId>
+			<artifactId>uimaj-core</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.uima</groupId>
+			<artifactId>uimaj-document-annotation</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.uima</groupId>
+			<artifactId>uimaj-cpe</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>tools</groupId>
+			<artifactId>dragon-tool</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>tools</groupId>
+			<artifactId>heptag</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>tools</groupId>
+			<artifactId>mallet-deps</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>tools</groupId>
+			<artifactId>mallet</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>tools</groupId>
+			<artifactId>banner-wrapper</artifactId>
+			<version>0.0.3</version>
+		</dependency>
+		
   </dependencies>
   <properties>
   	<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
