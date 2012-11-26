@@ -9,7 +9,7 @@ import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.resource.ResourceInitializationException;
 
-import edu.cmu.lti.oaqa.core.provider.solr.SolrWrapper;
+//import edu.cmu.lti.oaqa.core.provider.solr.SolrWrapper;
 import edu.cmu.lti.oaqa.cse.basephase.retrieval.AbstractRetrievalStrategist;
 import edu.cmu.lti.oaqa.framework.data.Keyterm;
 import edu.cmu.lti.oaqa.framework.data.RetrievalResult;
@@ -21,7 +21,7 @@ import edu.cmu.lti.oaqa.framework.data.RetrievalResult;
 public class SimpleBioSolrRetrievalStrategist extends AbstractRetrievalStrategist {
 
   protected Integer hitListSize;
-  protected SolrWrapper wrapper;
+  protected SimpleSolrWrapper wrapper;
 
   @Override
   public void initialize(UimaContext aContext) throws ResourceInitializationException {
@@ -37,7 +37,7 @@ public class SimpleBioSolrRetrievalStrategist extends AbstractRetrievalStrategis
     Boolean embedded = (Boolean) aContext.getConfigParameterValue("embedded");
     String core = (String) aContext.getConfigParameterValue("core");
     try {
-      wrapper = new SolrWrapper(serverUrl, serverPort, embedded, core);
+      wrapper = new SimpleSolrWrapper(serverUrl, serverPort, embedded, core);
     } catch (Exception e) {
       throw new ResourceInitializationException(e);
     }
@@ -69,8 +69,9 @@ public class SimpleBioSolrRetrievalStrategist extends AbstractRetrievalStrategis
   
   protected String formulateQuery(String questionText, List<Keyterm> keyterms) {
     StringBuffer query = new StringBuffer();
-    for(Keyterm term: keyterms)
+    for(Keyterm term: keyterms){
       query.append(term+" ");
+    }
     return query.toString();
   }
 
