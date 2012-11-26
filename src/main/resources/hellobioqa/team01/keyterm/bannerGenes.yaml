@@ -1,0 +1,7 @@
+class: edu.cmu.lti.oaqa.openqa.test.team01.keyterm.BannerKeytermUpdater
+
+configFile: banner_BC2GM.xml
+modelFile: model_BC2GM.bin
+
+persistence-provider: |
+  inherit: ecd.default-log-persistence-provider
