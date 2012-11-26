@@ -37,7 +37,9 @@ public class LingpipeKeytermUpdater extends AbstractKeytermUpdater {
     Chunking chunking = chunker.chunk(question);
     for(Chunk chunk: chunking.chunkSet()) {
       String word = question.substring(chunk.start(), chunk.end());
-      keyterms.add(new Keyterm(word));
+      Keyterm keyterm = new Keyterm(word);
+      keyterm.setComponentId("GENE");
+      keyterms.add(keyterm);
       log("LingPipe keyterm: "+word);
     }
     return keyterms;

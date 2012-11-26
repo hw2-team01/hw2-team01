@@ -71,7 +71,9 @@ public class VerbKeytermUpdater extends AbstractKeytermUpdater {
           String word = token.get(TextAnnotation.class);
           if(stopwords.contains(word)) continue;
           log("Verb: "+word);
-          keyterms.add(new Keyterm(word));
+          Keyterm keyterm = new Keyterm(word);
+          keyterm.setComponentId("VERB");
+          keyterms.add(keyterm);
         }
       }
     }
