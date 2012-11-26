@@ -1,8 +1,7 @@
-class: edu.cmu.lti.oaqa.openqa.test.team01.keyterm.MaibergKeyTermExtractor
-#configFile: BC2GM.xml
-#modelFile: BC2GM_model.bin
+class: edu.cmu.lti.oaqa.openqa.test.team01.keyterm.BannerKeytermUpdater
 
 configFile: banner_AZDC.xml
 modelFile: model_AZDC.bin
+
 persistence-provider: |
   inherit: ecd.default-log-persistence-provider

@@ -44,8 +44,9 @@ public class SimpleBioSolrRetrievalStrategist extends AbstractRetrievalStrategis
   @Override
   protected List<RetrievalResult> retrieveDocuments(String questionText, List<Keyterm> keyterms) {
     String query = formulator.formulateQuery(questionText, keyterms);
-    System.out.println(" QUERY: " + query);
-    return retriever.retrieveDocuments(query);
+    List<RetrievalResult> results = retriever.retrieveDocuments(query);
+    System.out.println("Question: "+questionText+" -> Keyterms: "+keyterms+" -> Query: " + query+"-> #Results: "+results.size()+"");
+    return results;
   }
 
   @Override

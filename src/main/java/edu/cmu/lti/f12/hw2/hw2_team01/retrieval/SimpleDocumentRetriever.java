@@ -14,10 +14,10 @@ public class SimpleDocumentRetriever {
   private int hitListSize;
 
   public SimpleDocumentRetriever(String serverUrl, Integer serverPort, Boolean embedded, String core, Integer hitListSize) throws Exception {
-      wrapper = new SolrWrapper(serverUrl, serverPort, embedded, core);
-      this.hitListSize = hitListSize; 
+    wrapper = new SolrWrapper(serverUrl, serverPort, embedded, core);
+    this.hitListSize = hitListSize; 
   }
-  
+
   public List<RetrievalResult> retrieveDocuments(String query) {
     List<RetrievalResult> result = new ArrayList<RetrievalResult>();
     try {
@@ -33,7 +33,7 @@ public class SimpleDocumentRetriever {
     }
     return result;
   }
-  
+
   public void close() {
     wrapper.close();
   }

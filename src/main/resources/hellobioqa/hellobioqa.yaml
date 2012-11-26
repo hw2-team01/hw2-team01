@@ -12,13 +12,24 @@ collection-reader:
 
 pipeline:
   - inherit: jdbc.sqlite.cse.phase  
-    name: keyterm-extractor
+    name: null-keyterm-extractor
     options: |
-     # - inherit: helloqa.keyterm.simple
-     # - inherit: hellobioqa.team01.keyterm.victor
-     # - inherit: hellobioqa.team01.keyterm.yipeiw
-     # - inherit: hellobioqa.team01.keyterm.guanyuw
-      - inherit: hellobioqa.team01.keyterm.maiberg
+     - inherit: hellobioqa.team01.keyterm.null
+     
+  - inherit: jdbc.sqlite.cse.phase  
+    name: banner-keyterm-updater
+    options: |
+     - inherit: hellobioqa.team01.keyterm.banner
+     
+  - inherit: jdbc.sqlite.cse.phase  
+    name: lingpipe-keyterm-updater
+    options: |
+     - inherit: hellobioqa.team01.keyterm.lingpipe
+     
+  - inherit: jdbc.sqlite.cse.phase  
+    name: verb-keyterm-updater
+    options: |
+     - inherit: hellobioqa.team01.keyterm.verb
 
   - inherit: jdbc.sqlite.cse.phase 
     name: retrieval-strategist

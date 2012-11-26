@@ -11,5 +11,4 @@ public class SimpleQueryFormulator {
       query.append(term+" ");
     return query.toString();
   }
-
 }
