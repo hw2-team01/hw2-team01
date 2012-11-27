@@ -144,10 +144,10 @@ public final class SimpleSolrWrapper implements Closeable {
   }
   
   public String getBoosts(String term) {
-    term.replaceAll(":GENE", "^5");
-    term.replaceAll(":VERB", "^1");
-    term.replaceAll(":DISE", "^4");
-    
+    term = term.replace(":GENE", "^10");
+    term = term.replace(":VERB", "^1");
+    term = term.replace(":DISE_KEY", "^5");
+    term = term.replace(":DISE_SYN", "^2");
     return term;
   }
 
