@@ -162,7 +162,7 @@
 		<dependency>
 			<groupId>tools</groupId>
 			<artifactId>banner-wrapper</artifactId>
-			<version>0.0.3</version>
+			<version>0.0.5</version>
 		</dependency>
 		
   </dependencies>
