@@ -12,7 +12,7 @@ import org.apache.uima.resource.ResourceInitializationException;
 import edu.cmu.lti.oaqa.framework.data.Keyterm;
 import edu.cmu.lti.oaqa.framework.data.RetrievalResult;
 
-public class QueryExpandingRetrievalStrategist extends SimpleBioSolrRetrievalStrategist {
+public class QueryExpandingRetrievalStrategist2 extends SimpleBioSolrRetrievalStrategist {
   
   MeSHQueryExpander meshExpander;
   int extendflag;
@@ -58,12 +58,12 @@ public class QueryExpandingRetrievalStrategist extends SimpleBioSolrRetrievalStr
     StringBuffer query = new StringBuffer();
     for(Keyterm term: keyterms) {
       if(term.getComponentId().equals("DISE")) {
-        query.append("(" + term + "):DISE_KEY ");
+        query.append("\"" + term + "\":DISE_KEY ");
         extendflag = 0;
 //        query.append("(");
         for(String synonym: meshExpander.getSynomyms(term.getText())) {
           log("Expanded "+term+" -> "+synonym);
-          query.append("(" + synonym + "):DISE_SYN ");
+          query.append("\"" + synonym + "\":DISE_SYN ");
           extendflag = 1;
         }
         query.delete(query.length()-1, query.length());
@@ -77,11 +77,11 @@ public class QueryExpandingRetrievalStrategist extends SimpleBioSolrRetrievalStr
       }
       else if(term.getComponentId().equals("GENE"))
       {
-        query.append("(" + term + "):GENE ");
+        query.append("+\"" + term + "\":GENE ");
       }
       else if(term.getComponentId().equals("VERB"))
       {
-        query.append("(" + term + "):VERB ");
+        query.append("\"" + term + "\":VERB ");
       }
     }
     query.delete(query.length() - 1, query.length());

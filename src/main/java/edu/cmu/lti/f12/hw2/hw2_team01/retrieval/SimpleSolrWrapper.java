@@ -83,7 +83,6 @@ public final class SimpleSolrWrapper implements Closeable {
   public SolrDocumentList runQuery(String q, int results) throws SolrServerException {
     SolrQuery query = new SolrQuery();
     query.setQuery(escapeQuery(q));
-//    query.setQuery(getBoosts(escapeQuery(q)));
     query.setRows(results);
     query.setFields("*", "score");
     System.out.println(query.toString());
@@ -144,10 +143,10 @@ public final class SimpleSolrWrapper implements Closeable {
   }
   
   public String getBoosts(String term) {
-    term = term.replace(":GENE", "^10");
-    term = term.replace(":VERB", "^1");
-    term = term.replace(":DISE_KEY", "^5");
-    term = term.replace(":DISE_SYN", "^2");
+    term = term.replace(":GENE", "^1000");
+    term = term.replace(":VERB", "^10");
+    term = term.replace(":DISE_KEY", "^1000");
+    term = term.replace(":DISE_SYN", "^1");
     return term;
   }
 
