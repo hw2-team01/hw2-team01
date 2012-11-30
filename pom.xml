@@ -164,7 +164,6 @@
 			<artifactId>banner-wrapper</artifactId>
 			<version>0.0.5</version>
 		</dependency>
-		
   </dependencies>
   <properties>
   	<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>

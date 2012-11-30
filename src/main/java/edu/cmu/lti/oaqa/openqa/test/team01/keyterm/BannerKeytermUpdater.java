@@ -13,6 +13,7 @@ import org.apache.uima.resource.ResourceInitializationException;
 
 import banner.eval.uima.BANNERWrapper;
 
+
 import edu.cmu.lti.oaqa.cse.basephase.keyterm.AbstractKeytermUpdater;
 import edu.cmu.lti.oaqa.framework.data.Keyterm;
 
@@ -90,11 +91,6 @@ public class BannerKeytermUpdater extends AbstractKeytermUpdater {
 			System.out.println(configFilePath);
 		banw = new BANNERWrapper();
 		banw.initialize(configFilePath, modelFilePath);
-	}
-
-	public static void main(String[] args) {
-		BannerKeytermUpdater mkt = new BannerKeytermUpdater();
-		mkt.testIntialize("config/banner_AZDC.xml", "/output/model_AZDC.bin");
 		File input = new File("src/main/resources/input/trecgen06.txt");
 		Scanner scanner = null;
 		try {
@@ -103,35 +99,27 @@ public class BannerKeytermUpdater extends AbstractKeytermUpdater {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		System.out.println("Diseases: ");
-		// String q = "What is the role of IDE in Alzheimer's disease ?";
 		while (scanner.hasNext()) {
 			String q = scanner.nextLine().replaceAll("^[0-9]*\\|", "");
 			System.out.println("Question: " + q);
-			for (Keyterm term : mkt.testUpdateKeyterms(q,
-					new LinkedList<Keyterm>()))
+			for (Keyterm term : testUpdateKeyterms(q, new LinkedList<Keyterm>()))
 				System.out.println(term);
 		}
 
-		mkt.testIntialize("config/banner_BC2GM.xml", "/output/model_BC2GM.bin");
+	}
 
-		try {
-			scanner = new Scanner(input);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static void main(String[] args) {
+		BannerKeytermUpdater mkt = new BannerKeytermUpdater();
+
+		System.out.println("Diseases: ");
+		mkt.testIntialize("config/banner_AZDC.xml", "/output/model_AZDC.bin");
 
 		System.out.println("Genes:");
+		mkt.testIntialize("config/banner_BC2GM.xml", "/output/model_BC2GM.bin");
 
-		while (scanner.hasNext()) {
-			String q = scanner.nextLine().replaceAll("^[0-9]*\\|", "");
-			System.out.println("Question: " + q);
-			for (Keyterm term : mkt.testUpdateKeyterms(q,
-					new LinkedList<Keyterm>()))
-				System.out.println(term + " " +  term.getComponentId());
-		}
+		System.out.println("Protiens:");
+		
+		
 	}
 
 }

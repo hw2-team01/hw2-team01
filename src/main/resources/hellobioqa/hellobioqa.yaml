@@ -8,7 +8,7 @@ persistence-provider:
 collection-reader:
   inherit: hellobioqa.collection.decorated-collection-reader
   dataset: TRECGEN06
-  file: /input/trecgen06.txt
+  file: /input/small-trecgen06.txt
 
 pipeline:
   - inherit: jdbc.sqlite.cse.phase  
@@ -57,10 +57,11 @@ pipeline:
     
 post-process: 
   - inherit: helloqa.eval.keyterm-evaluator-consumer
-  - inherit: report.csv-report-generator
+  - inherit: hellobioqa.report.hbqa-report-generator
     builders: |
-      - inherit: helloqa.report.keyterm-report-component
-
+        - inherit: helloqa.report.keyterm-report-component
+       #- inherit: hellobioqa.report.hbqa-report-generator
+  
   - inherit: jdbc.eval.retrieval-evaluator-consumer
   - inherit: report.csv-report-generator
     builders: |
