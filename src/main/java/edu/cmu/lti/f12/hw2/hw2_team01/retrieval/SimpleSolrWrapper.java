@@ -91,7 +91,7 @@ public final class SimpleSolrWrapper implements Closeable {
     return rsp.getResults();
   }
   
-  public SolrDocumentList runQuery(String q, int results, String type, String mm) throws SolrServerException {
+  public SolrDocumentList runQuery(String q, int results, String type, String mm, String Geneboost, String Diseboost, String Verbboost ) throws SolrServerException {
     SolrQuery query = new SolrQuery();
     if(type.equals("dismax")){
       query.setParam("defType", "edismax");
@@ -100,7 +100,26 @@ public final class SimpleSolrWrapper implements Closeable {
       query.setParam("pf", "text^100");
     }
     
-    query.setQuery(getBoosts(escapeQuery(q)));
+    query.setQuery(getBoosts(escapeQuery(q), Geneboost, Diseboost, Verbboost));
+    query.setRows(results);
+    query.setFields("*", "score");
+    //can also try nested query for different boosts of phrase in text
+    //q=revised+AND+book+AND+_query_:"{!dismax qf=title pf=title^10 v=$qq}"&qq=revised+book
+    
+    System.out.println(query.toString());
+   
+    QueryResponse rsp = server.query(query);
+    return rsp.getResults();
+  }
+  
+  public SolrDocumentList runQuery(String q, int results, String type, String Geneboost, String Diseboost, String Verbboost ) throws SolrServerException {
+    SolrQuery query = new SolrQuery();
+    if(type.equals("dismax")){
+      query.setParam("defType", "edismax");
+      query.setParam("qf", "text");
+      query.setParam("pf", "text^100");
+    }
+    query.setQuery(getBoosts(escapeQuery(q), Geneboost, Diseboost, Verbboost));
     query.setRows(results);
     query.setFields("*", "score");
     //can also try nested query for different boosts of phrase in text
@@ -142,11 +161,11 @@ public final class SimpleSolrWrapper implements Closeable {
     return term;
   }
   
-  public String getBoosts(String term) {
-    term = term.replace(":GENE", "^1000");
-    term = term.replace(":VERB", "^10");
-    term = term.replace(":DISE_KEY", "^1000");
-    term = term.replace(":DISE_SYN", "^1");
+  public String getBoosts(String term, String Geneboost, String Diseboost, String Verbboost) {
+    term = term.replace(":GENE", "^"+Geneboost);
+    term = term.replace(":DISE", "^"+Diseboost);
+    term = term.replace(":VERB", "^"+Verbboost);
+
     return term;
   }
 

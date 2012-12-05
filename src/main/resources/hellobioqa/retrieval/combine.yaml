@@ -6,6 +6,9 @@ combineQ1: AND
 combineQ2: OR
 combineR1: base
 combineR2: base
+GENEkey: 100
+DISEkey: 100
+VERB: 25
 
 persistence-provider: |
   inherit: ecd.default-log-persistence-provider

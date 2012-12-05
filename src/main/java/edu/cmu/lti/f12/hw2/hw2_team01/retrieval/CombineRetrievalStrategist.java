@@ -25,6 +25,8 @@ public class CombineRetrievalStrategist extends AbstractRetrievalStrategist {
   protected String CombineQuery2;
   protected String CombineRetrieval1;
   protected String CombineRetrieval2;
+  protected String geneboost, diseboost, verbboost;
+  
 
   @Override
   public void initialize(UimaContext aContext) throws ResourceInitializationException {
@@ -42,6 +44,12 @@ public class CombineRetrievalStrategist extends AbstractRetrievalStrategist {
     CombineQuery2 = (String) aContext.getConfigParameterValue("combineQ2");
     CombineRetrieval1 = (String) aContext.getConfigParameterValue("combineR1");
     CombineRetrieval2 = (String) aContext.getConfigParameterValue("combineR2");
+    geneboost = String.valueOf((Integer) aContext.getConfigParameterValue("GENEkey"));
+    System.out.println("the geneboost: " + geneboost);
+    verbboost = String.valueOf((Integer) aContext.getConfigParameterValue("VERB"));
+    System.out.println("the verbboost: " + verbboost);
+    diseboost = String.valueOf((Integer) aContext.getConfigParameterValue("DISEkey"));
+    System.out.println("the diseboost:" + diseboost); 
     try {
       wrapper = new SimpleSolrWrapper(serverUrl, serverPort, embedded, core);
     } catch (Exception e) {
@@ -72,7 +80,7 @@ public class CombineRetrievalStrategist extends AbstractRetrievalStrategist {
       if (choice == "base") {
         docs = wrapper.runQuery(query, hitListSize);
       } else {
-        docs = wrapper.runQuery(query, hitListSize, "dismax", "4");
+        docs = wrapper.runQuery(query, hitListSize, "dismax", geneboost, diseboost, verbboost);
       }
       for (SolrDocument doc : docs) {
         RetrievalResult r = new RetrievalResult((String) doc.getFieldValue("id"),

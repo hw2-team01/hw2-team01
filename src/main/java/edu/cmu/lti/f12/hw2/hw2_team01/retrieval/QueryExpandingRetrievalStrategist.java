@@ -94,7 +94,7 @@ public class QueryExpandingRetrievalStrategist extends SimpleBioSolrRetrievalStr
   protected List<RetrievalResult> retrieveDocuments(String query) {
     List<RetrievalResult> result = new ArrayList<RetrievalResult>();
     try {
-      SolrDocumentList docs = wrapper.runQuery(query, hitListSize, "dismax", "4");
+      SolrDocumentList docs = wrapper.runQuery(query, hitListSize);
       for (SolrDocument doc : docs) {
         RetrievalResult r = new RetrievalResult((String) doc.getFieldValue("id"),
                 (Float) doc.getFieldValue("score"), query);
