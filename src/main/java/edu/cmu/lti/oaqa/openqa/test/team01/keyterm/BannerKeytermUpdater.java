@@ -76,7 +76,6 @@ public class BannerKeytermUpdater extends AbstractKeytermUpdater {
 			Keyterm keyterm = new Keyterm(mentionText);
 			keyterm.setComponentId(type);
 			keyterms.add(keyterm);
-			log("BANNER keyterm: " + mentionText + " type: " + type);
 		}
 		return keyterms;
 	}

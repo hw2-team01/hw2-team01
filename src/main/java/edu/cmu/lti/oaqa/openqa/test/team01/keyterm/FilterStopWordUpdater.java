@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 
 import org.apache.uima.UimaContext;
@@ -15,7 +14,6 @@ import org.apache.uima.resource.ResourceInitializationException;
 
 import edu.cmu.lti.oaqa.cse.basephase.keyterm.AbstractKeytermUpdater;
 import edu.cmu.lti.oaqa.framework.data.Keyterm;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 
 public class FilterStopWordUpdater extends AbstractKeytermUpdater {
 

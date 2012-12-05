@@ -40,7 +40,6 @@ public class LingpipeKeytermUpdater extends AbstractKeytermUpdater {
       Keyterm keyterm = new Keyterm(word);
       keyterm.setComponentId("GENE");
       keyterms.add(keyterm);
-      log("LingPipe keyterm: "+word);
     }
     return keyterms;
   }

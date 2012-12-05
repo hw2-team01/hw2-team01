@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 
 import org.apache.uima.UimaContext;
@@ -15,18 +14,14 @@ import org.apache.uima.resource.ResourceInitializationException;
 import edu.cmu.lti.oaqa.cse.basephase.keyterm.AbstractKeytermUpdater;
 import edu.cmu.lti.oaqa.framework.data.Keyterm;
 import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 
 public class VerbKeytermUpdater extends AbstractKeytermUpdater {
 
   private Set<String> stopwords;
-  private StanfordCoreNLP pipeline;
 
   @Override
   public void initialize(UimaContext context) throws ResourceInitializationException {
@@ -52,25 +47,16 @@ public class VerbKeytermUpdater extends AbstractKeytermUpdater {
     }
     log("Read "+stopwords.size()+" stop words.");
     // Load POS tagging pipeline
-    log("Loading Stanford POS tagging pipeline");
-    Properties props = new Properties();
-    props.put("annotators", "tokenize, ssplit, pos");
-    pipeline = new StanfordCoreNLP(props);
-    log("POS tagging pipeline loaded");
   }
 
   @Override
   protected List<Keyterm> updateKeyterms(String question, List<Keyterm> keyterms) {
-    Annotation document = new Annotation(question);
-    pipeline.annotate(document);
-    List<CoreMap> sentences = document.get(SentencesAnnotation.class);
-    for (CoreMap sentence : sentences) {
+    for (CoreMap sentence : StanfordPOSTagger.getInstance().annotate(question)) {
       for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
         String pos = token.get(PartOfSpeechAnnotation.class);
         if (pos.startsWith("V")) {
           String word = token.get(TextAnnotation.class);
           if(stopwords.contains(word)) continue;
-          log("Verb: "+word);
           Keyterm keyterm = new Keyterm(word);
           keyterm.setComponentId("VERB");
           keyterms.add(keyterm);

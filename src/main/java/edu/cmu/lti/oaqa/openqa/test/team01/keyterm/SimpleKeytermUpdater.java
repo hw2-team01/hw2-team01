@@ -44,7 +44,9 @@ public class SimpleKeytermUpdater extends AbstractKeytermUpdater {
 
     String[] questionTokens = question.split("\\s+");
     for (int i = 0; i < questionTokens.length; i++) {
-      keyterms.add(new Keyterm(questionTokens[i]));
+      Keyterm keyterm = new Keyterm(questionTokens[i]);
+      keyterm.setComponentId("SIMPLE");
+      keyterms.add(keyterm);
     }
 
     return keyterms;

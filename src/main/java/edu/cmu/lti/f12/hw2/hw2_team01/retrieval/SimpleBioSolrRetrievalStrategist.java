@@ -47,8 +47,16 @@ public class SimpleBioSolrRetrievalStrategist extends AbstractRetrievalStrategis
   protected List<RetrievalResult> retrieveDocuments(String questionText, List<Keyterm> keyterms) {
     String query = formulateQuery(questionText, keyterms);
     List<RetrievalResult> results = retrieveDocuments(query);
-    System.out.println("Question: "+questionText+" -> Keyterms: "+keyterms+" -> Query: " + query+"-> #Results: "+results.size()+"");
+    log("Question: "+questionText+" -> Keyterms: "+formatKeyterms(keyterms)+"-> Query: " + query+"-> #Results: "+results.size()+"");
     return results;
+  }
+  
+  private static String formatKeyterms(List<Keyterm> keyterms) {
+    StringBuffer query = new StringBuffer();
+    for(Keyterm term: keyterms){
+      query.append("\""+term+"\"/"+term.getComponentId()+" ");
+    }
+    return query.toString();
   }
 
   protected List<RetrievalResult> retrieveDocuments(String query) {
@@ -59,7 +67,7 @@ public class SimpleBioSolrRetrievalStrategist extends AbstractRetrievalStrategis
         RetrievalResult r = new RetrievalResult((String) doc.getFieldValue("id"),
                 (Float) doc.getFieldValue("score"), query);
         result.add(r);
-        System.out.println(doc.getFieldValue("id"));
+        log("Retrieved document: "+doc.getFieldValue("id"));
       }
     } catch (Exception e) {
       System.err.println("Error retrieving documents from Solr: " + e);
