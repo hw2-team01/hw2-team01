@@ -1,0 +1,10 @@
+class: edu.cmu.lti.f12.hw2.hw2_team01.retrieval.BoostedSimpleBioSolrRetrievalStrategist
+hit-list-size: 10
+server: http://peace.isri.cs.cmu.edu:9080/solr/genomics-simple/
+port: 9080
+GENEkey: 100
+DISEkey: 100
+VERB: 25
+
+persistence-provider: |
+  inherit: ecd.default-log-persistence-provider
