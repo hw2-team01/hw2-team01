@@ -1,0 +1,6 @@
+class: edu.cmu.lti.oaqa.openqa.test.team01.keyterm.MeSHKeytermUpdater
+
+MeSH-database: src/main/resources/models/MeSH.db
+
+persistence-provider: |
+  inherit: ecd.default-log-persistence-provider
