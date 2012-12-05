@@ -55,7 +55,7 @@ public class MeSHKeytermUpdater extends AbstractKeytermUpdater {
     for(String candidate: candidates) {
       if(candidate.split(" ").length < 2) continue; // at least two words
       if(meshExpander.getSynomyms(candidate).size() > 0) {
-        Keyterm keyterm = new Keyterm(candidate);
+        Keyterm keyterm = new Keyterm(candidate.replace(" 's", "'s")); // detokenize
         keyterm.setComponentId("MESH");
         keyterms.add(keyterm);
       }

@@ -34,7 +34,7 @@ public class DeduplicateKeytermUpdater extends AbstractKeytermUpdater {
   protected List<Keyterm> updateKeyterms(String question, List<Keyterm> keyterms) {
     HashMap<String, Keyterm> keytermMap = new HashMap<String, Keyterm>();
     for (Keyterm keyterm : keyterms) {
-      String key = keyterm.getText().replace(" ", "");
+      String key = keyterm.getText();
       Keyterm existing = keytermMap.get(key);
       if(existing == null || getPriority(keyterm) > getPriority(existing))
       keytermMap.put(key, keyterm);
