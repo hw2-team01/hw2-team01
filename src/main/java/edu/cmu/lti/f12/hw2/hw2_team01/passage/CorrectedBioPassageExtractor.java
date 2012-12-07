@@ -45,16 +45,19 @@ public class CorrectedBioPassageExtractor extends SimplePassageExtractor {
             return keyterm.getText();
           }
         });
-        
+      
         List<PassageCandidate> passageSpans = finder.extractPassages(keytermStrings
                 .toArray(new String[0]));
+      System.out.println("extracted passages... ->" + passageSpans );
         for (PassageCandidate passageSpan : passageSpans){
           System.out.println("Score: " + passageSpan.getProbability() + " DocId:" + passageSpan.getDocID());
+         
           result.add(passageSpan);}
       } catch (SolrServerException e) {
         e.printStackTrace();
       }
     }
+    System.out.println("returning result");
     return result;
   }
 
