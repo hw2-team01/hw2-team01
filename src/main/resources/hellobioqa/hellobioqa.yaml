@@ -24,10 +24,8 @@ pipeline:
   - inherit: jdbc.sqlite.cse.phase  
     name: banner-keyterm-updater
     options: |
-     - inherit: hellobioqa.team01.keyterm.bannerDiseases
-     
+     - inherit: hellobioqa.team01.keyterm.bannerDiseases 
 
-       
   - inherit: jdbc.sqlite.cse.phase  
     name: lingpipe-keyterm-updater
     options: |
