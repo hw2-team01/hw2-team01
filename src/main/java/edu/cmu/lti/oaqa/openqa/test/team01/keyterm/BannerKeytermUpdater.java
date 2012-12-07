@@ -2,12 +2,14 @@ package edu.cmu.lti.oaqa.openqa.test.team01.keyterm;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.apache.uima.UimaContext;
 import org.apache.uima.resource.ResourceInitializationException;
 
@@ -31,11 +33,20 @@ public class BannerKeytermUpdater extends AbstractKeytermUpdater {
 				.getConfigParameterValue("modelFile");
 
 		URL configFilePath = Thread.currentThread().getContextClassLoader()
-				.getResource("config/" + configFilePathString);
-		String modelFilePath = "/output/" + modelFilePathString;
+				.getResource(configFilePathString);
 
 		banw = new BANNERWrapper();
-		banw.initialize(configFilePath, modelFilePath);
+		
+		try {
+		
+			banw.initialize(configFilePathString, modelFilePathString,false);
+		} catch (ConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	protected List<Keyterm> testUpdateKeyterms(String question,
@@ -89,7 +100,15 @@ public class BannerKeytermUpdater extends AbstractKeytermUpdater {
 		if (modelFilePath != null)
 			System.out.println(configFilePath);
 		banw = new BANNERWrapper();
-		banw.initialize(configFilePath, modelFilePath);
+		try {
+			banw.initialize(configFile, modelFilePath,false);
+		} catch (ConfigurationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		File input = new File("src/main/resources/input/trecgen06.txt");
 		Scanner scanner = null;
 		try {
@@ -111,10 +130,10 @@ public class BannerKeytermUpdater extends AbstractKeytermUpdater {
 		BannerKeytermUpdater mkt = new BannerKeytermUpdater();
 
 		System.out.println("Diseases: ");
-		mkt.testIntialize("config/banner_AZDC.xml", "/output/model_AZDC.bin");
+		mkt.testIntialize("banner_AZDC.xml", "model_AZDC.bin");
 
 		System.out.println("Genes:");
-		mkt.testIntialize("config/banner_BC2GM.xml", "/output/model_BC2GM.bin");
+		mkt.testIntialize("banner_BC2GM.xml", "model_BC2GM.bin");
 
 		System.out.println("Protiens:");
 		
