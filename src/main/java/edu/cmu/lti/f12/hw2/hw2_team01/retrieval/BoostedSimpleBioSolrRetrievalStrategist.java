@@ -2,6 +2,7 @@ package edu.cmu.lti.f12.hw2.hw2_team01.retrieval;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
@@ -18,11 +19,12 @@ import edu.cmu.lti.oaqa.framework.data.RetrievalResult;
  * Original version by @author Zi Yang <ziy@cs.cmu.edu>
  * Modified by @author Victor Chahuneau <vchahune@cs.cmu.edu>
  */
-public class SimpleBioSolrRetrievalStrategist extends AbstractRetrievalStrategist {
+public class BoostedSimpleBioSolrRetrievalStrategist extends AbstractRetrievalStrategist {
 
   protected Integer hitListSize;
   protected SimpleSolrWrapper wrapper;
-
+  protected String geneboost, diseboost, verbboost;
+  
   @Override
   public void initialize(UimaContext aContext) throws ResourceInitializationException {
     super.initialize(aContext);
@@ -36,6 +38,12 @@ public class SimpleBioSolrRetrievalStrategist extends AbstractRetrievalStrategis
     Integer serverPort = (Integer) aContext.getConfigParameterValue("port");
     Boolean embedded = (Boolean) aContext.getConfigParameterValue("embedded");
     String core = (String) aContext.getConfigParameterValue("core");
+    geneboost = String.valueOf((Integer) aContext.getConfigParameterValue("GENEkey"));
+    System.out.println("the geneboost: " + geneboost);
+    verbboost = String.valueOf((Integer) aContext.getConfigParameterValue("VERB"));
+    System.out.println("the verbboost: " + verbboost);
+    diseboost = String.valueOf((Integer) aContext.getConfigParameterValue("DISEkey"));
+    System.out.println("the diseboost:" + diseboost);
     try {
       wrapper = new SimpleSolrWrapper(serverUrl, serverPort, embedded, core);
     } catch (Exception e) {
@@ -47,27 +55,19 @@ public class SimpleBioSolrRetrievalStrategist extends AbstractRetrievalStrategis
   protected List<RetrievalResult> retrieveDocuments(String questionText, List<Keyterm> keyterms) {
     String query = formulateQuery(questionText, keyterms);
     List<RetrievalResult> results = retrieveDocuments(query);
-    log("Question: "+questionText+" -> Keyterms: "+formatKeyterms(keyterms)+"-> Query: " + query+"-> #Results: "+results.size()+"");
+    System.out.println("Question: "+questionText+" -> Keyterms: "+keyterms+" -> Query: " + query+"-> #Results: "+results.size()+"");
     return results;
-  }
-  
-  private static String formatKeyterms(List<Keyterm> keyterms) {
-    StringBuffer query = new StringBuffer();
-    for(Keyterm term: keyterms){
-      query.append("\""+term+"\"/"+term.getComponentId()+" ");
-    }
-    return query.toString();
   }
 
   protected List<RetrievalResult> retrieveDocuments(String query) {
     List<RetrievalResult> result = new ArrayList<RetrievalResult>();
     try {
-      SolrDocumentList docs = wrapper.runQuery(query, hitListSize);
+      SolrDocumentList docs = wrapper.runQuery(query, hitListSize, "dismax", geneboost, verbboost, diseboost);
       for (SolrDocument doc : docs) {
         RetrievalResult r = new RetrievalResult((String) doc.getFieldValue("id"),
                 (Float) doc.getFieldValue("score"), query);
         result.add(r);
-        log("Retrieved document: "+doc.getFieldValue("id"));
+        System.out.println(doc.getFieldValue("id"));
       }
     } catch (Exception e) {
       System.err.println("Error retrieving documents from Solr: " + e);
@@ -75,10 +75,21 @@ public class SimpleBioSolrRetrievalStrategist extends AbstractRetrievalStrategis
     return result;
   }
   
+  protected String getLabel(Keyterm term){
+    String label = term.getComponentId();
+    StringTokenizer tokenizer = new StringTokenizer(term.toString());
+    StringBuffer query = new StringBuffer();
+    while (tokenizer.hasMoreTokens()) {
+      query.append(tokenizer.nextToken() + ":" + label + " ");
+    }
+    query.delete(query.length() - 1, query.length());
+    return query.toString();
+  }
+  
   protected String formulateQuery(String questionText, List<Keyterm> keyterms) {
     StringBuffer query = new StringBuffer();
     for(Keyterm term: keyterms){
-      query.append(term+" ");
+      query.append(getLabel(term)+ " ");
     }
     return query.toString();
   }

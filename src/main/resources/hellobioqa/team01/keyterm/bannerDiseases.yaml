@@ -1,4 +1,4 @@
-class: edu.cmu.lti.oaqa.openqa.test.team01.keyterm.BannerKeytermUpdater
+class: edu.cmu.lti.f12.hw2.hw2_team01.keyterm.BannerKeytermUpdater
 
 configFile: banner_AZDC.xml
 modelFile: model_AZDC.bin

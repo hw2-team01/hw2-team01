@@ -8,7 +8,7 @@ persistence-provider:
 collection-reader:
   inherit: hellobioqa.collection.decorated-collection-reader
   dataset: TRECGEN06
-  file: /input/small-trecgen06.txt
+  file: /input/trecgen06.txt
 
 pipeline:
   - inherit: jdbc.sqlite.cse.phase  
@@ -25,7 +25,7 @@ pipeline:
     name: banner-keyterm-updater
     options: |
      - inherit: hellobioqa.team01.keyterm.bannerDiseases 
-
+       
   - inherit: jdbc.sqlite.cse.phase  
     name: lingpipe-keyterm-updater
     options: |
@@ -36,11 +36,25 @@ pipeline:
     options: |
      - inherit: hellobioqa.team01.keyterm.verb
 
+  - inherit: jdbc.sqlite.cse.phase  
+    name: mesh-keyterm-updater
+    options: |
+     - inherit: hellobioqa.team01.keyterm.mesh
+     
+  - inherit: jdbc.sqlite.cse.phase
+    name: rule-keyterm-updater
+    options: |
+     - inherit: hellobioqa.team01.keyterm.ruleBased
+     
+  - inherit: jdbc.sqlite.cse.phase  
+    name: deduplicate-keyterm-updater
+    options: |
+     - inherit: hellobioqa.team01.keyterm.deduplicate
+     
   - inherit: jdbc.sqlite.cse.phase 
     name: retrieval-strategist
     options: |
       - inherit: hellobioqa.retrieval.simple-solr-strategist
-      - inherit: hellobioqa.retrieval.query-expanding-strategist2
           
   - inherit: jdbc.sqlite.cse.phase  
     name: passage-extractor
@@ -55,10 +69,9 @@ pipeline:
     
 post-process: 
   - inherit: helloqa.eval.keyterm-evaluator-consumer
-  - inherit: hellobioqa.report.hbqa-report-generator
+  - inherit: report.csv-report-generator
     builders: |
-        - inherit: helloqa.report.keyterm-report-component
-       #- inherit: hellobioqa.report.hbqa-report-generator
+      - inherit: helloqa.report.keyterm-report-component
   
   - inherit: jdbc.eval.retrieval-evaluator-consumer
   - inherit: report.csv-report-generator

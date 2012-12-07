@@ -1,0 +1,6 @@
+class: edu.cmu.lti.f12.hw2.hw2_team01.keyterm.MeSHKeytermUpdater
+
+MeSH-database: src/main/resources/models/MeSH.db
+
+persistence-provider: |
+  inherit: ecd.default-log-persistence-provider
