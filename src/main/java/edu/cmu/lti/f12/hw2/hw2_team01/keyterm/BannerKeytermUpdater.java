@@ -1,4 +1,4 @@
-package edu.cmu.lti.oaqa.openqa.test.team01.keyterm;
+package edu.cmu.lti.f12.hw2.hw2_team01.keyterm;
 
 import java.io.File;
 import java.io.FileNotFoundException;
