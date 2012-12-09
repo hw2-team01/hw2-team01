@@ -37,7 +37,7 @@ public class SentenceBasedPassageExtractor extends SimplePassageExtractor {
        // HtmlCleaner cleaner = new HtmlCleaner.ByteCleaner();
       //  text=  cleaner.cleanString(text);
       //  System.out.println("clean html: " + text);
-        CorrectedPassageCandidateFinder2 finder = new CorrectedPassageCandidateFinder2(id, text,
+      SentenceBasedPassageCandidateFinder finder = new SentenceBasedPassageCandidateFinder(id, text,
                 new KeytermWindowScorerSum());
         List<String> keytermStrings = Lists.transform(keyterms, new Function<Keyterm, String>() {
           public String apply(Keyterm keyterm) {
