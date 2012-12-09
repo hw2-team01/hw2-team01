@@ -8,7 +8,7 @@ persistence-provider:
 collection-reader:
   inherit: hellobioqa.collection.decorated-collection-reader
   dataset: TRECGEN06
-  file: /input/small-trecgen06.txt
+  file: /input/trecgen06.txt
 
 pipeline:
   - inherit: jdbc.sqlite.cse.phase  
@@ -55,12 +55,17 @@ pipeline:
     name: retrieval-strategist
     options: |
       - inherit: hellobioqa.retrieval.simple-solr-strategist
-          
+  
   - inherit: jdbc.sqlite.cse.phase  
-    name: passage-extractor
+    name: passage-sentence-extractor
     options: |
-      - inherit: hellobioqa.passage.paragraph-extractor
-      - inherit: hellobioqa.passage.simple
+      - inherit: hellobioqa.passage.sentence-chunker
+     
+  #- inherit: jdbc.sqlite.cse.phase  
+   # name: passage-extractor
+    #options: |
+      #- inherit: hellobioqa.passage.paragraph-extractor
+     # - inherit: hellobioqa.passage.simple-updater
       
   - inherit: helloqa.eval.keyterm-aggregator-consumer
 

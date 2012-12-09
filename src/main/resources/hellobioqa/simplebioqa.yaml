@@ -8,7 +8,7 @@ persistence-provider:
 collection-reader:
   inherit: hellobioqa.collection.decorated-collection-reader
   dataset: TRECGEN06
-  file: /input/small-trecgen06.txt
+  file: /input/trecgen06.txt
 
 pipeline:
   - inherit: jdbc.sqlite.cse.phase
@@ -24,7 +24,8 @@ pipeline:
   - inherit: jdbc.sqlite.cse.phase  
     name: passage-extractor
     options: |
-      - inherit: hellobioqa.passage.simple-corrected
+      #- inherit: hellobioqa.passage.simple
+      - inherit: hellobioqa.passage.sentence-chunker
       
   - inherit: helloqa.eval.keyterm-aggregator-consumer
 

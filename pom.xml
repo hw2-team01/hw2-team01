@@ -63,7 +63,7 @@
   	<dependency>
   		<groupId>edu.cmu.lti.oaqa.openqa</groupId>
   		<artifactId>helloqa</artifactId>
-  		<version>1.0.1</version>
+  		<version>1.0.3</version>
   	</dependency>
   	<dependency>
   		<groupId>edu.stanford.nlp</groupId>
@@ -164,7 +164,12 @@
 		<artifactId>banner-wrapper</artifactId>
 		<version>0.0.9</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>com.google.sitebricks</groupId>
+			<artifactId>slf4j</artifactId>
+			<version>0.8.3</version>
+		</dependency>
   </dependencies>
   <properties>
   	<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>

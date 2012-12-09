@@ -1,0 +1,8 @@
+class: edu.cmu.lti.f12.hw2.hw2_team01.passage.SimpleBioPassageUpdater
+hit-list-size: 1
+server: http://peace.isri.cs.cmu.edu:9080/solr/genomics-simple/
+port: 9080
+keytermWindowScorer: edu.cmu.lti.f12.hw2.hw2_team01.passage.KeytermWindowScorerSum
+
+persistence-provider: |
+  inherit: ecd.default-log-persistence-provider
