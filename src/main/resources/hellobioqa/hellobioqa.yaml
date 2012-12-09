@@ -59,7 +59,8 @@ pipeline:
   - inherit: jdbc.sqlite.cse.phase  
     name: passage-extractor
     options: |
-      - inherit: hellobioqa.passage.simple
+      - inherit: hellobioqa.passage.simplecorrected
+      - inherit: hellobioqa.passage.sentencebased-passage-extractor
       
   - inherit: helloqa.eval.keyterm-aggregator-consumer
 
