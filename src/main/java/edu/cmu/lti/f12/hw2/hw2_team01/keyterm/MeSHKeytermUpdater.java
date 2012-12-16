@@ -1,5 +1,6 @@
 package edu.cmu.lti.f12.hw2.hw2_team01.keyterm;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,9 @@ public class MeSHKeytermUpdater extends AbstractKeytermUpdater {
   public void initialize(UimaContext context) throws ResourceInitializationException {
     super.initialize(context);
     String meshDatabasePath = (String) context.getConfigParameterValue("MeSH-database");
-    log("Loading MeSH query expander with database: "+meshDatabasePath);
-    meshExpander = new MeSHQueryExpander(meshDatabasePath);
+    URL meshUrl = (URL)getClass().getClassLoader().getResource(meshDatabasePath);    
+    log("Loading MeSH query expander with database: "+meshUrl);
+    meshExpander = new MeSHQueryExpander(meshUrl.getPath());
   }
 
   @Override
