@@ -1,6 +1,6 @@
 class: edu.cmu.lti.f12.hw2.hw2_team01.keyterm.LingpipeKeytermUpdater
 
-model: src/main/resources/models/ne-en-bio-genetag.HmmChunker
+model: models/ne-en-bio-genetag.HmmChunker
 
 persistence-provider: |
   inherit: ecd.default-log-persistence-provider
