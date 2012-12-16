@@ -1,6 +1,8 @@
 package edu.cmu.lti.f12.hw2.hw2_team01.keyterm;
 
 import java.io.File;
+import java.io.ObjectInputStream;
+import java.net.URL;
 import java.util.List;
 
 import org.apache.uima.UimaContext;
@@ -25,8 +27,9 @@ public class LingpipeKeytermUpdater extends AbstractKeytermUpdater {
   public void initialize(UimaContext context) throws ResourceInitializationException {
     super.initialize(context);
     String modelFile = (String) context.getConfigParameterValue("model");
+    URL modelUrl = (URL) getClass().getClassLoader().getResource(modelFile);
     try {
-      chunker = (Chunker) AbstractExternalizable.readObject(new File(modelFile));
+      chunker = (Chunker) new ObjectInputStream(modelUrl.openStream()).readObject();
     } catch (Exception e) {
       throw new ResourceInitializationException(e);
     }
