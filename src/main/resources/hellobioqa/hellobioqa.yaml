@@ -58,10 +58,10 @@ pipeline:
    
   
      
-  - inherit: jdbc.sqlite.cse.phase 
-    name: retrieval-strategist
-    options: |
-      - inherit: hellobioqa.retrieval.query-expanding-strategist
+ # - inherit: jdbc.sqlite.cse.phase 
+  #  name: retrieval-strategist
+   # options: |
+    #  - inherit: hellobioqa.retrieval.query-expanding-strategist
 
      
   #- inherit: jdbc.sqlite.cse.phase 
