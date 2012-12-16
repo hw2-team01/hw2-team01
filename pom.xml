@@ -87,8 +87,6 @@
   		<artifactId>jsoup</artifactId>
   		<version>1.7.1</version>
   	</dependency>
-
-
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
@@ -164,7 +162,6 @@
 		<artifactId>banner-wrapper</artifactId>
 		<version>0.0.9</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.google.sitebricks</groupId>
 			<artifactId>slf4j</artifactId>
