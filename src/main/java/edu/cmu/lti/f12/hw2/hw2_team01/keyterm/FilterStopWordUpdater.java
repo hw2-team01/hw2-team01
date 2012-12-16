@@ -47,7 +47,7 @@ public class FilterStopWordUpdater extends AbstractKeytermUpdater {
   protected List<Keyterm> updateKeyterms(String question, List<Keyterm> keyterms) {
     List<Keyterm> result = new ArrayList<Keyterm>();
     for (Keyterm word : keyterms) {
-      if (stopwords.contains(word))
+      if (stopwords.contains(word.toString().toLowerCase()))
         continue;
       result.add(word);
     }

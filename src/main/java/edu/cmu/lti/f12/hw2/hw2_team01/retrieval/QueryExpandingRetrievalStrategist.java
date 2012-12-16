@@ -54,7 +54,7 @@ public class QueryExpandingRetrievalStrategist extends SimpleBioSolrRetrievalStr
   
   
   @Override
-  protected String formulateQuery(String questionText, List<Keyterm> keyterms) {
+  protected String formulateQuery(List<Keyterm> keyterms) {
     StringBuffer query = new StringBuffer();
     for(Keyterm term: keyterms) {
       if(term.getComponentId().equals("DISE")) {

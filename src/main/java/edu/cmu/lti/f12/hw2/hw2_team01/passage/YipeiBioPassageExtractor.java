@@ -44,7 +44,7 @@ public class YipeiBioPassageExtractor extends SimplePassageExtractor {
   protected List<PassageCandidate> extractPassages(String question, List<Keyterm> keyterms,
           List<RetrievalResult> documents) {
     List<PassageCandidate> result = new ArrayList<PassageCandidate>();
-    for (RetrievalResult document : documents) {
+   /* for (RetrievalResult document : documents) {
       System.out.println("RetrievalResult: " + document.toString());
       String id = document.getDocID();
       try {
@@ -74,7 +74,7 @@ public class YipeiBioPassageExtractor extends SimplePassageExtractor {
       } catch (SolrServerException e) {
         e.printStackTrace();
       }
-    }
+    }*/
     return result;
   }
 }

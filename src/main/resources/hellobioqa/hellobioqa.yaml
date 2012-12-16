@@ -50,16 +50,37 @@ pipeline:
     name: deduplicate-keyterm-updater
     options: |
      - inherit: hellobioqa.team01.keyterm.deduplicate
+  
+  - inherit: jdbc.sqlite.cse.phase  
+    name: deduplicate-keyterm-updater
+    options: |
+     - inherit: hellobioqa.team01.keyterm.filterstop
+   
+  
      
   - inherit: jdbc.sqlite.cse.phase 
     name: retrieval-strategist
     options: |
-      - inherit: hellobioqa.retrieval.simple-solr-strategist
+      - inherit: hellobioqa.retrieval.query-expanding-strategist
+
+     
+  #- inherit: jdbc.sqlite.cse.phase 
+  #  name: retrieval-strategist
+  #  options: |
+   #   - inherit: hellobioqa.retrieval.boostedsimple-solr-strategist
+      
+    inherit: jdbc.sqlite.cse.phase 
+    name: retrieval-strategist
+    options: |
+      - inherit: hellobioqa.retrieval.combine
+      
+         
+
           
   - inherit: jdbc.sqlite.cse.phase  
     name: passage-extractor
     options: |
-      - inherit: hellobioqa.passage.simplecorrected
+      #- inherit: hellobioqa.passage.simplecorrected
       - inherit: hellobioqa.passage.sentencebased-passage-extractor
       
   - inherit: helloqa.eval.keyterm-aggregator-consumer
