@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +12,7 @@ import java.util.Set;
 import org.apache.uima.UimaContext;
 import org.apache.uima.resource.ResourceInitializationException;
 
+import edu.cmu.lti.f12.hw2.hw2_team01.retrieval.MeSHQueryExpander;
 import edu.cmu.lti.oaqa.cse.basephase.keyterm.AbstractKeytermUpdater;
 import edu.cmu.lti.oaqa.framework.data.Keyterm;
 import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
@@ -28,10 +30,12 @@ public class VerbKeytermUpdater extends AbstractKeytermUpdater {
     super.initialize(context);
     // Load stopwords
     stopwords = new HashSet<String>();
-    String stopwordFile = (String) context.getConfigParameterValue("stopwords");
-    log("Reading stop words from "+stopwordFile);
+
+    String stopWordPath = (String) context.getConfigParameterValue("stopwords");
+    URL stopWordUrl = (URL) getClass().getClassLoader().getResource(stopWordPath);
+    log("Reading stop words from "+stopWordUrl);
     try {
-      BufferedReader br = new BufferedReader(new FileReader(stopwordFile));
+      BufferedReader br = new BufferedReader(new FileReader(stopWordUrl.getPath()));
       String line;
       while ((line = br.readLine()) != null) {
         stopwords.add(line.trim());

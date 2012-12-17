@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,10 +25,11 @@ public class FilterStopWordUpdater extends AbstractKeytermUpdater {
     super.initialize(context);
     // Load stopwords
     stopwords = new HashSet<String>();
-    String stopwordFile = (String) context.getConfigParameterValue("stopwords");
-    log("Reading stop words from " + stopwordFile);
+    String stopWordPath = (String) context.getConfigParameterValue("stopwords");
+    URL stopWordUrl = (URL) getClass().getClassLoader().getResource(stopWordPath);
+    log("Reading stop words from "+stopWordUrl);
     try {
-      BufferedReader br = new BufferedReader(new FileReader(stopwordFile));
+      BufferedReader br = new BufferedReader(new FileReader(stopWordUrl.getPath()));
       String line;
       while ((line = br.readLine()) != null) {
         stopwords.add(line.trim());
@@ -36,11 +38,12 @@ public class FilterStopWordUpdater extends AbstractKeytermUpdater {
     } catch (FileNotFoundException e) {
       System.err.println("Stop word file not found");
       throw new ResourceInitializationException(e);
-    } catch (IOException e) {
+    }
+    catch(IOException e) {
       System.err.println("Error while reading word file");
       throw new ResourceInitializationException(e);
     }
-    log("Read " + stopwords.size() + " stop words.");
+    log("Read "+stopwords.size()+" stop words.");
   }
 
   @Override
