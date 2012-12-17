@@ -36,10 +36,10 @@ pipeline:
     options: |
      - inherit: hellobioqa.team01.keyterm.verb
 
-  - inherit: jdbc.sqlite.cse.phase  
-    name: mesh-keyterm-updater
-    options: |
-     - inherit: hellobioqa.team01.keyterm.mesh
+  #- inherit: jdbc.sqlite.cse.phase  
+  #  name: mesh-keyterm-updater
+  #  options: |
+   #  - inherit: hellobioqa.team01.keyterm.mesh
      
   - inherit: jdbc.sqlite.cse.phase
     name: rule-keyterm-updater
