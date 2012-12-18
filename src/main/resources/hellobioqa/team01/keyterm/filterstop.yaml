@@ -1,6 +1,6 @@
 class: edu.cmu.lti.f12.hw2.hw2_team01.keyterm.FilterStopWordUpdater
 
-stopwords: src/main/resources/models/stopwords.txt
+stopwords: models/stopwords.txt
 
 persistence-provider: |
   inherit: ecd.default-log-persistence-provider
