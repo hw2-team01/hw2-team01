@@ -4,9 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 
 import org.apache.uima.UimaContext;
@@ -34,21 +36,21 @@ public class VerbKeytermUpdater extends AbstractKeytermUpdater {
     String stopWordPath = (String) context.getConfigParameterValue("stopwords");
     URL stopWordUrl = (URL) getClass().getClassLoader().getResource(stopWordPath);
     log("Reading stop words from "+stopWordUrl);
-    try {
-      BufferedReader br = new BufferedReader(new FileReader(stopWordUrl.getPath()));
+    Scanner scanner = null;
+	try {
+		scanner = new Scanner(stopWordUrl.openStream());
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+  
       String line;
-      while ((line = br.readLine()) != null) {
+      while (scanner.hasNext()) {
+    	  line = scanner.nextLine();
         stopwords.add(line.trim());
       }
-      br.close();
-    } catch (FileNotFoundException e) {
-      System.err.println("Stop word file not found");
-      throw new ResourceInitializationException(e);
-    }
-    catch(IOException e) {
-      System.err.println("Error while reading word file");
-      throw new ResourceInitializationException(e);
-    }
+      scanner.close();
+  
     log("Read "+stopwords.size()+" stop words.");
     // Load POS tagging pipeline
   }
