@@ -63,7 +63,7 @@
   	<dependency>
   		<groupId>edu.cmu.lti.oaqa.openqa</groupId>
   		<artifactId>helloqa</artifactId>
-  		<version>1.0.3</version>
+  		<version>1.0.1</version>
   	</dependency>
   	<dependency>
   		<groupId>edu.stanford.nlp</groupId>
@@ -172,4 +172,13 @@
   	<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
   	<project.build.outputEncoding>utf-8</project.build.outputEncoding>
   </properties>
+  <dependencyManagement>
+  	<dependencies>
+  		<dependency>
+  			<groupId>edu.cmu.lti.oaqa.openqa</groupId>
+  			<artifactId>helloqa</artifactId>
+  			<version>1.0.3</version>
+  		</dependency>
+  	</dependencies>
+  </dependencyManagement>
 </project>
